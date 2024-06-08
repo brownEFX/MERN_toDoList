@@ -1,0 +1,45 @@
+<%- include("header") -%>
+
+  <div class="box" id="heading">
+    <h1> <%= listTitle %> </h1>
+  </div>
+
+  <div class="box">
+<!--  forLoop
+    <% for (let i = 0; i < newListItems.length; i++) { %>
+      <div class="item">
+        <input type="checkbox">
+        <p> <% newListItems[i].name %> </p>
+      </div>
+      <% } %>
+-->
+    <!-- forEach: //<array>.forEach(function(<singleArrayItem>) { //use each singleArrayItem }); -->
+      <!-- <% newListItems.forEach((item) => { %>
+        <div class="item">
+          <input type="checkbox">
+          <p><%=  item.name  %></p>
+        </div>
+      <% }) %> -->
+
+      <% newListItems.forEach((item) => { %>
+        <!-- //Send data when checkbox is checked -->
+        <form action="/delete" method="post">
+          <div class="item">
+            <!-- //Submit whe checkbox is checked: onChange='this.form.submit()' -->
+            <!-- value="<%= item._id %>" | value="<%= item.name %>" -->
+            <input type="checkbox" name="checkbox" value="<%= item._id %>" onChange="this.form.submit()"></input>
+            <p> <%=  item.name  %>  </p>
+          </div>
+          <!-- Handles ListName -->
+          <input type="hidden" name="listName"  value="<%= listTitle %>"></input>
+        </form>
+        <% }) %>
+
+
+      <form class="item" action="/" method="post">
+        <input type="text" name="newItem" placeholder="New Item" autocomplete="off" autofocus="on">
+        <button type="submit" name="list" value="<%= listTitle %>"> + </button>
+      </form>
+  </div>
+
+<%- include("footer") -%>
